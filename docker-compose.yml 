@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    command: npm run dev
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mockserver
+      - db
+
+  mockserver:
+    image: jamesdbloom/mockserver:mockserver-5.11.2
+    ports:
+      - "1080:1080"
+    volumes:
+      - ./mockserver/initializerJson.json:/config/initializerJson.json
+
+  db:
+    image: mongo:4.2
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
