@@ -1,5 +1,4 @@
 {
-  "name": "recommendation-app",
   "version": "1.0.0",
   "description": "A Node.js/TypeScript application for personalized recommendations",
   "main": "dist/app.js",
@@ -13,7 +12,7 @@
     "axios": "^1.4.0",
     "body-parser": "^1.20.2",
     "express": "^4.18.2",
-    "express-validator": "^6.15.0",
+    "express-validator": "^6.15.0"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.2",

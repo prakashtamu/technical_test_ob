@@ -9,15 +9,16 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - mockserver
+      - wiremock
       - db
 
-  mockserver:
-    image: jamesdbloom/mockserver:mockserver-5.11.2
+  wiremock:
+    image: wiremock/wiremock:2.35.0
     ports:
-      - "1080:1080"
+      - "8080:8080"
     volumes:
-      - ./mockserver/initializerJson.json:/config/initializerJson.json
+      - ./wiremock:/home/wiremock
+    command: --verbose
 
   db:
     image: mongo:4.2
