@@ -8,9 +8,10 @@ Your task is to extend an existing Node.js web application by adding new feature
 - Save these recommendations in a database.
 - Add another endpoint to retrieve saved recommendations for each user.
 - Integrate with a mock Large Language Model (LLM) agent using a provided Docker Compose setup.
+- create a frontend to interact with the backend
 
-This task assesses your ability to integrate external services, handle HTTP requests/responses, work with databases, and write clean, maintainable code following best practices.
-
+This task assesses your ability to integrate external services, handle HTTP requests/responses, work with databases, and write clean, maintainable code following best practices. 
+### Note: you can change any file on this project, as long as you provide a working code OR enough code that can you can explain you choices.
 ## Project Overview
 
 You are provided with a basic project structure of a web application built using Express.js and TypeScript. The application currently has a few endpoints set up. Your job is to:
@@ -21,10 +22,14 @@ You are provided with a basic project structure of a web application built using
   
 2. **Add another endpoint `/users/:user_id/recommendations`** to retrieve saved recommendations.
     - Ensure proper error handling and input validation.
+
+3. **Create a frontend using React that uses those two endpoints**
+   - there is no restriction on component library or tools you use
+   - create is based on the mockup provided
+
+4. **Write unit tests** for your new code.
   
-3. **Write unit tests** for your new code.
-  
-4. **Document your work** and provide instructions on how to run the application.
+5. **Document your work** and provide instructions on how to run the application.
 
 ## Task Details
 
@@ -114,8 +119,13 @@ This endpoint simulates a feature in a content platform where users receive cont
   }
   ```
 
-### 6. Error Handling and Input Validation
-
+### 6. create the FrontEnd based on the muckup provided
+- **Create **Add a React app that will be based on the mockup provided:
+  - it is recommended to use NextJS and shadcn, but any component library will work.
+  - this can be served using the existing server, or you can create another server to serve the new FE app.
+  - if you decide to add a new app, make sure to add it to the docker compose file.
+  - the frontend should be mobile compatible and look good both and dsektop and on mobile.
+### 7. Error Handling and Input Validation
 - **Input Validation**:
   - Ensure that `user_id` is provided and is a non-empty string.
   - Ensure that `preferences` is a non-empty array of strings.
@@ -130,7 +140,7 @@ This endpoint simulates a feature in a content platform where users receive cont
     }
     ```
 
-### 7. Write Unit Tests
+### 8. Write Unit Tests
 
 - **Testing Framework**: Use Jest.
 - **Requirements**:
@@ -185,9 +195,15 @@ This endpoint simulates a feature in a content platform where users receive cont
 
 You may use additional Node.js libraries if necessary (e.g., Axios for HTTP requests, Express Validator for input validation), but please justify their use in your documentation.
 
+### Think about edge cases
+you are expected to think about edge cases and product usability. 
+try to create the best product experience as you can.
+
 ### Assumptions
 
 If any part of the task is unclear, make reasonable assumptions and note them in the README.md.
+You can also reach out to ask any question, 
+Notice that ANY file on this project can be changed, this is a just a skeleton to get you started.
 
 ### Focus Areas
 
