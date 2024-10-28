@@ -5,12 +5,13 @@
 Your task is to extend an existing Node.js web application by adding new features that simulate a real-world scenario. You will:
 
 - Add a new endpoint that allows users to receive personalized recommendations based on their interests.
-- Save these recommendations in a database.
+- Save these recommendations in a in memory cache. 
+  - bonus: Save these recommendations in a database.
 - Add another endpoint to retrieve saved recommendations for each user.
 - Integrate with a mock Large Language Model (LLM) agent using a provided Docker Compose setup.
 - create a frontend to interact with the backend
 
-This task assesses your ability to integrate external services, handle HTTP requests/responses, work with databases, and write clean, maintainable code following best practices. 
+This task assesses your ability to integrate external services, handle HTTP requests/responses, and write clean, maintainable code following best practices. 
 ### Note: you can change any file on this project, as long as you provide a working code OR enough code that can you can explain you choices.
 ## Project Overview
 
@@ -18,7 +19,7 @@ You are provided with a basic project structure of a web application built using
 
 1. **Add a new endpoint `/recommendations`** that generates and saves personalized recommendations.
     - Integrate with a mock LLM agent, accessible via Docker Compose, to generate recommendations.
-    - Save recommendations in a database (you'll need to add a database service to the Docker Compose file).
+    - Save recommendations in a database (you'll need to add a in memory cache.
   
 2. **Add another endpoint `/users/:user_id/recommendations`** to retrieve saved recommendations.
     - Ensure proper error handling and input validation.
@@ -33,15 +34,22 @@ You are provided with a basic project structure of a web application built using
 
 ## Task Details
 
-### 1. Start the Mock LLM Agent
+### 1. create the FrontEnd based on the muckup provided
+- **Create Add a React app that will be based on the mockup provided**:
+  - it is recommended to use NextJS and shadcn, but any component library will work.
+  - this can be served using the existing server, or you can create another server to serve the new FE app.
+  - if you decide to add a new app, make sure to add it to the docker compose file.
+  - the frontend should be mobile compatible and look good both and dsektop and on mobile.
+
+### 2. Start the Mock LLM Agent
 
 - Use the provided `docker-compose.yml` file to start the mock LLM agent.
-- LLM Agent URL: The mock LLM agent will be accessible at `http://localhost:1080`.
+- LLM Agent URL: The mock LLM agent will be accessible at `http://localhost:8080`.
 
-### 2. Create a New Endpoint `/recommendations`
+### 3. Create a New Endpoint `/recommendations`
 
 - **Method**: POST
-- **Description**: Accepts a JSON payload containing user preferences, generates personalized recommendations using the mock LLM agent, saves them in the database, and returns them in the response.
+- **Description**: Accepts a JSON payload containing user preferences, generates personalized recommendations using the mock LLM agent, saves them in the cache, and returns them in the response.
 - **Request Body Example**:
   ```json
   {
@@ -65,8 +73,12 @@ You are provided with a basic project structure of a web application built using
 
 This endpoint simulates a feature in a content platform where users receive content recommendations based on their interests.
 
-### 3. Save Recommendations in the Database
+### 4. Save Recommendations in an in memory cache
 
+- **Data Persistence**:
+  - Save each user's recommendations in an in memory cache
+
+bonus:
 - **Database Setup**:
   - Add a MongoDB database service to the `docker-compose.yml` file.
   - Configure the database connection in your application.
@@ -100,7 +112,7 @@ This endpoint simulates a feature in a content platform where users receive cont
 ### 5. Integrate with the Mock LLM Agent
 
 - **LLM Agent Interaction**:
-  - Send a POST request to `http://localhost:1080/llm/generate` with the user's preferences.
+  - Send a POST request to `http://localhost:8080/llm/generate` with the user's preferences.
   - The mock LLM agent will return a list of recommendations based on the provided preferences.
 - **LLM Agent Request Example**:
   ```json
@@ -119,19 +131,12 @@ This endpoint simulates a feature in a content platform where users receive cont
   }
   ```
 
-### 6. create the FrontEnd based on the muckup provided
-- **Create **Add a React app that will be based on the mockup provided:
-  - it is recommended to use NextJS and shadcn, but any component library will work.
-  - this can be served using the existing server, or you can create another server to serve the new FE app.
-  - if you decide to add a new app, make sure to add it to the docker compose file.
-  - the frontend should be mobile compatible and look good both and dsektop and on mobile.
-### 7. Error Handling and Input Validation
+### 6. Error Handling and Input Validation
 - **Input Validation**:
   - Ensure that `user_id` is provided and is a non-empty string.
   - Ensure that `preferences` is a non-empty array of strings.
 - **Error Handling**:
   - Handle scenarios where the LLM agent returns an error or is unreachable.
-  - Handle database errors (e.g., connection issues, query failures).
   - Return appropriate HTTP status codes and error messages.
   - **Error Response Example**:
     ```json
@@ -140,14 +145,7 @@ This endpoint simulates a feature in a content platform where users receive cont
     }
     ```
 
-### 8. Write Unit Tests
-
-- **Testing Framework**: Use Jest.
-- **Requirements**:
-  - Mock external calls to the LLM agent and the database to ensure tests are reliable and fast.
-  - Cover successful responses, input validation errors, and failure scenarios (e.g., LLM agent down, database errors).
-
-### 8. Documentation
+### 7. Documentation
 
 - **Update README.md**:
   - Provide instructions on how to set up and run the application, including starting the services via Docker Compose.
@@ -158,9 +156,8 @@ This endpoint simulates a feature in a content platform where users receive cont
 
 - **Programming Language**: Node.js with TypeScript
 - **Web Framework**: Express.js
-- **Database**: MongoDB (using Mongoose)
 - **Testing Framework**: Jest
-- **External Tools**: MockServer: Accessible at `http://localhost:1080` via Docker Compose.
+- **External Tools**: MockServer: Accessible at `http://localhost:8080` via Docker Compose.
 - **Code Style**: Adhere to standard TypeScript and Node.js coding conventions.
 - **Version Control**: Provide your solution in a Git repository format.
 
@@ -170,14 +167,12 @@ This endpoint simulates a feature in a content platform where users receive cont
 - **Documentation**: Ensure the README.md is clear and provides all necessary instructions.
 - **Dependencies**: Include a `package.json` file listing all dependencies.
 - **Testing**: All tests should be runnable using a single command (e.g., `npm test`).
-- **Docker Compose**: Include your updated `docker-compose.yml` file with the database service added. Ensure that all services can be started with `docker-compose up`.
 - **Git Commits**: Make meaningful commit messages that reflect the changes made.
 
 ## Evaluation Criteria
 
 - **Functionality**: The endpoints work as specified.
   - Correct integration with the mock LLM agent.
-  - Data is correctly saved and retrieved from the database.
 - **Code Quality**: Clean, readable, and well-organized code following best practices.
   - Proper use of comments and documentation where appropriate.
 - **Error Handling**: Robust input validation and error management.
@@ -187,7 +182,7 @@ This endpoint simulates a feature in a content platform where users receive cont
 - **Documentation**: Clear instructions and explanations in the README.md.
   - Any assumptions or design decisions are well-documented.
 - **Integration**: Effective use of the provided MockServer to simulate the LLM agent.
-  - Successful addition of a database service to Docker Compose.
+  - Bonus: Successful addition of a database service to Docker Compose.
 
 ## Notes
 
@@ -235,7 +230,7 @@ cd <repository-directory>
   npm install
   ```
 
-- **Docker Services**: Start all services (including the mock LLM agent and database) using Docker Compose:
+- **Docker Services**: Start all services using Docker Compose:
   ```bash
   docker-compose up
   ```
@@ -271,13 +266,11 @@ npm test
 
 ## Additional Information
 
-- **Mock LLM Agent Endpoint**: `http://localhost:1080/llm/generate`
-- **Database Service**: Ensure the database is correctly configured in both `docker-compose.yml` and your application settings.
+- **Mock LLM Agent Endpoint**: `http://localhost:8080/llm/generate`
 - Feel free to enhance the project structure and configuration as you see fit, as long as the core requirements are met. It is recommended to look at the different options for the LLM Agent Endpoints!
 
 ### Additional Notes
 
-- **Database Connection**: Make sure to update the MongoDB connection string in `src/utils/database.ts` if necessary.
 - **Error Handling**: The application includes basic error handling. Feel free to enhance it to cover more edge cases.
 - **Testing**: The tests provided are basic and serve as a starting point. Expand them to cover more scenarios as required.
 - **Logging**: Currently, console logs are used for simplicity. In a production environment, consider using a logging library.
