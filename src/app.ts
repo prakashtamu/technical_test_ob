@@ -1,7 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
-import recommendationsRouter from "./routes/recommendations";
-import usersRouter from "./routes/users";
+import recommendationsRouter from "@/routes/recommendations";
+import usersRouter from "@/routes/users";
 import Errorhandler from "@/middleware/error-handler";
 import { initializeDatabase } from "@/utils/database";
 
