@@ -1,16 +1,16 @@
 version: '3.8'
 
 services:
-  app:
-    build: .
-    command: npm run dev
-    volumes:
-      - .:/usr/src/app
-    ports:
-      - "8000:8000"
-    depends_on:
-      - wiremock
-      - db
+  # app:
+  #   build: .
+  #   command: npm run dev
+  #   volumes:
+  #     - .:/usr/src/app
+  #   ports:
+  #     - "8000:8000"
+  #   depends_on:
+  #     - wiremock
+  #     # - mongodb  # Ensure the app service waits for MongoDB
 
   wiremock:
     image: wiremock/wiremock:2.35.0
@@ -18,7 +18,25 @@ services:
       - "8080:8080"
     volumes:
       - ./wiremock:/home/wiremock
+      - ./wiremock/mappings:/home/wiremock/mappings  # Mount mappings folder
+      - ./wiremock/__files:/home/wiremock/__files  # Mount __files folder
     command: --verbose
 
-volumes:
-  mongo_data:
+  # mongodb:
+  #   image: mongo:latest  # Pull the latest MongoDB image
+  #   container_name: mongodb
+  #   environment:
+  #     - MONGO_INITDB_ROOT_USERNAME=root
+  #     - MONGO_INITDB_ROOT_PASSWORD=examplepassword  # Set a root password
+  #     - MONGO_INITDB_DATABASE=myNewDatabase  # Default database (optional)
+  #   volumes:
+  #     - mongo_data:/data/db  # Persist MongoDB data
+  #   ports:
+  #     - "27017:27017"  # Expose MongoDB on port 27017
+
+# volumes:
+  # mongo_data:  # Named volume to store MongoDB data
+
+networks:
+  default:
+    driver: bridge
