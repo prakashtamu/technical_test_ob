@@ -23,3 +23,12 @@ export const initializeDatabase = async () => {
     process.exit(1);
   }
 };
+
+export const closeDatabase = async () => {
+  try {
+    await mongoose.connection.close();
+    Logger.info("Database connection closed");
+  } catch (error) {
+    Logger.error(`Error closing database connection: ${error}`);
+  }
+};

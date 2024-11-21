@@ -1,5 +1,6 @@
 import request from "supertest";
-import app from "../src/app";
+import app from "@/app";
+import { closeDatabase } from "@/utils/database";
 
 describe("GET /users/:user_id/recommendations", () => {
   it("should retrieve saved recommendations", async () => {
@@ -29,4 +30,8 @@ describe("GET /users/:user_id/recommendations", () => {
       throw new Error("Unexpected status code");
     }
   });
+});
+
+afterAll(async () => {
+  await closeDatabase();
 });

@@ -2,8 +2,6 @@ export default {
   preset: `ts-jest`,
   testEnvironment: `node`,
   verbose: true,
-  globalSetup: `<rootDir>/jest.global.setup.ts`,
-  globalTeardown: `<rootDir>/jest.global.teardown.ts`,
   setupFiles: [`<rootDir>/jest.setup.ts`],
   setupFilesAfterEnv: [],
   rootDir: `./`,
