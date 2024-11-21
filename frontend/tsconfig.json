@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ESNext", // Specify ECMAScript target version
+    "module": "ESNext", // Use ES modules
+    "lib": ["DOM", "DOM.Iterable", "ESNext"], // Include standard libraries
+    "jsx": "preserve", // Enable React JSX
+    "strict": true, // Enable all strict type-checking options
+    "moduleResolution": "node", // Resolve modules like Node.js
+    "esModuleInterop": true, // Enable compatibility with CommonJS
+    "skipLibCheck": true, // Skip type checks for library files
+    "forceConsistentCasingInFileNames": true, // Ensure file names are case-consistent
+    "allowJs": true,
+    "noEmit": true,
+    "incremental": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "include": ["app", ".next/types/**/*.ts", "components"], // Include files from the `app` directory
+  "exclude": ["node_modules"] // Exclude `node_modules` directory
+}
