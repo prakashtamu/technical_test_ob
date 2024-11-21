@@ -11,7 +11,7 @@ const Errorhandler = (
 ): void => {
   // we can use the logger for storing more detailed logs from here
   switch (true) {
-    case error instanceof ZodError:
+    case error instanceof ZodError: {
       const formattedErrors = error.errors.map((err) => ({
         path: err.path.join(`.`),
         message: err.message,
@@ -20,6 +20,7 @@ const Errorhandler = (
         .status(StatusCodes.UNPROCESSABLE_ENTITY)
         .send({ message: "Validation error", errors: formattedErrors });
       break;
+    }
 
     default:
       response.status(StatusCodes.INTERNAL_SERVER_ERROR).send({

@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
-    "target": "es2021",
+    "target": "ES6",
     "module": "commonjs",
     "outDir": "./build",
-    "esModuleInterop": true,
+    "moduleResolution": "node",
     "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true, // Ensure compatibility with CommonJS
+    "skipLibCheck": true, // Skip type checking of declaration files
     "strict": true,
-    "skipLibCheck": true,
     "baseUrl": "./",
     "incremental": true,
     "paths": {

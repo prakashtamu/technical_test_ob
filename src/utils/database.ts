@@ -10,15 +10,16 @@
 // Example (from a different context):
 
 import Env from "@/utils/env";
+import Logger from "@/utils/logger";
 import mongoose from "mongoose";
 
 export const initializeDatabase = async () => {
   try {
     // Mongoose connection options can be specified here
     await mongoose.connect(Env.DATABASE_URL, {});
-    console.log("Connected to the database");
+    Logger.info("Database connected");
   } catch (error) {
-    console.error("Database connection error:", error);
+    Logger.error(`Error connecting to database: ${error}`);
     process.exit(1);
   }
 };
