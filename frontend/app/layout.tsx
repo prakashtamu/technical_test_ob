@@ -1,3 +1,4 @@
+import React from "react";
 import Sidebar from "../components/sidebar";
 import "./css/app.css";
 export default function RootLayout({

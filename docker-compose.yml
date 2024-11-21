@@ -1,11 +1,23 @@
 version: '3.8'
 
 services:
+  frontend:
+    build:  
+      context: ./frontend
+    command: npm run start
+    volumes:
+      - ./frontend:/usr/src/app
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://backend:8000
+    depends_on:
+      - backend
+    
   backend:
     build:  
       context: .
-      dockerfile: backend.dockerfile
-    command: npm run dev
+    command: npm run start
     volumes:
       - .:/usr/src/app
     ports:
@@ -31,16 +43,17 @@ services:
     command: --verbose
 
   mongodb:
-    image: mongo:latest  # Pull the latest MongoDB image
+    image: mongo:latest
     container_name: mongodb
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=password  # Set a root password
-      - MONGO_INITDB_DATABASE=overbooked_ai  # Default database (optional)
+      - MONGO_INITDB_ROOT_PASSWORD=password
+      - MONGO_INITDB_DATABASE=overbooked_ai
     volumes:
-      - mongo_data:/data/db  # Persist MongoDB data
+      - mongo_data:/data/db
+    # Uncomment if you need MongoDB accessible from the host machine
     # ports:
-      # - "27017:27017"  # Expose MongoDB on port 27017 if needed. You can change this if needed
+    #   - "27017:27017"
 
 volumes:
   mongo_data:
