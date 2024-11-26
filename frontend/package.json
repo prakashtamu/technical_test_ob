@@ -17,9 +17,12 @@
   },
   "packageManager": "yarn@1.22.19+sha1.4ba7fc5c6e704fce2066ecbfb0b0d8976fe62447",
   "devDependencies": {
+    "@types/node": "22.10.0",
+    "@types/react": "18.3.12",
     "autoprefixer": "^10.4.20",
     "eslint-config-next": "^15.0.3",
     "postcss": "^8.4.49",
-    "tailwindcss": "^3.4.15"
+    "tailwindcss": "^3.4.15",
+    "typescript": "5.7.2"
   }
 }

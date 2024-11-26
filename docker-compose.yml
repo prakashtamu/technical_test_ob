@@ -7,6 +7,7 @@ services:
     command: npm run start
     volumes:
       - ./frontend:/usr/src/app
+      - /usr/src/app/.next
     ports:
       - "3000:3000"
     environment:
@@ -16,15 +17,16 @@ services:
     
   backend:
     build:  
-      context: .
+      context: ./backend
     command: npm run start
     volumes:
-      - .:/usr/src/app
+      - ./backend:/usr/src/app
+      - /usr/src/app/build
     ports:
       - "8000:8000"
     environment: 
       - PORT=8000
-      - NODE_ENV=development
+      - NODE_ENV=production
       - LOG_LEVEL=debug
       - DATABASE_URL=mongodb://root:password@mongodb:27017/overbooked_ai?authSource=admin
       - LLM_AGENT_URL=http://wiremock:8080
@@ -37,9 +39,9 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ./wiremock:/home/wiremock
-      - ./wiremock/mappings:/home/wiremock/mappings  # Mount mappings folder
-      - ./wiremock/__files:/home/wiremock/__files  # Mount __files folder
+      - ./backend/wiremock:/home/wiremock
+      - ./backend/wiremock/mappings:/home/wiremock/mappings  # Mount mappings folder
+      - ./backend/wiremock/__files:/home/wiremock/__files  # Mount __files folder
     command: --verbose
 
   mongodb:
