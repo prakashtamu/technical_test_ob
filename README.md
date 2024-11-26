@@ -54,7 +54,7 @@ docker-compose up wiremock
 docker-compose up mongodb
 ```
 
-This will create the wireshark and mongodb instances we can use for running tests.
+This will create the wiremock and mongodb instances we can use for running tests.
 Finally execute the test script
 
 `yarn test`

@@ -8,6 +8,7 @@ const Form = () => {
   const [userId, setUserId] = useState("");
   const [interests, setInterests] = useState<string[]>([]);
   const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
+
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,13 +19,11 @@ const Form = () => {
       .then((response) => {
         if (response.status === 200) {
           setInterests(response.data.recommendations);
-        } else {
-          alert("Error getting interests");
         }
       })
       .catch((error) => {
         console.error("Error saving interests:", error);
-        alert("Error getting interests");
+        alert(error?.response?.data?.error || "Error getting interests");
       });
   };
 

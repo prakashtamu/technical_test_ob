@@ -10,10 +10,12 @@
     "lint": "eslint 'src/**/*.ts' --fix"
   },
   "dependencies": {
+    "@types/cors": "^2.8.17",
     "@types/react": "^18.3.12",
     "@types/supertest": "^6.0.2",
     "axios": "^1.4.0",
     "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "envalid": "^8.0.0",
     "express": "^4.21.1",
@@ -50,7 +52,7 @@
     "typescript-eslint": "^8.15.0"
   },
   "engines": {
-    "node": "20.18.1"
+    "node": "22.11.0"
   },
   "packageManager": "yarn@1.22.19+sha1.4ba7fc5c6e704fce2066ecbfb0b0d8976fe62447"
 }

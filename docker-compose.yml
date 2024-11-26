@@ -2,23 +2,27 @@ services:
   frontend:
     build:  
       context: ./frontend
-    command: npm run start
+    command: yarn start
     volumes:
       - ./frontend:/usr/src/app
       - /usr/src/app/.next
+      - /usr/src/app/node_modules
     ports:
       - "3000:3000"
     environment:
       - NEXT_PUBLIC_API_URL=http://backend:8000
     depends_on:
       - backend
+    networks:
+      - default
     
   backend:
     build:  
       context: ./backend
-    command: npm run start
+    command: yarn start
     volumes:
       - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
       - /usr/src/app/build
     ports:
       - "8000:8000"
@@ -31,6 +35,8 @@ services:
     depends_on:
       - wiremock
       - mongodb 
+    networks:
+      - default
 
   wiremock:
     image: wiremock/wiremock:2.35.0
@@ -41,9 +47,11 @@ services:
       - ./backend/wiremock/mappings:/home/wiremock/mappings  # Mount mappings folder
       - ./backend/wiremock/__files:/home/wiremock/__files  # Mount __files folder
     command: --verbose
+    networks:
+      - default
 
   mongodb:
-    image: mongo:latest
+    image: mongo:8.0
     container_name: mongodb
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
@@ -54,6 +62,8 @@ services:
     # Uncomment if you need MongoDB accessible from the host machine
     ports:
       - "27017:27017"
+    networks:
+      - default
 
 volumes:
   mongo_data:

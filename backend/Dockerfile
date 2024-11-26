@@ -1,6 +1,6 @@
-FROM node
+FROM node:22.11.0-alpine
 WORKDIR /usr/src/app
 COPY package*.json ./
-RUN npm install
+RUN yarn
 COPY . .
-RUN npm run build
+RUN yarn build
