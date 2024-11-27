@@ -42,7 +42,6 @@ const GetRecommendationsPage: React.FC = () => {
     });
 
     setRecommendations(modifiedRecommendations);
-    console.log({ modifiedRecommendations });
     setPreferences(data.interests);
   };
 
@@ -62,7 +61,7 @@ const GetRecommendationsPage: React.FC = () => {
         </div>
       )}
 
-      {recommendations.length > 0 && (
+      {recommendations.length > 0 ? (
         <div>
           <h2 className="text-lg font-semibold">Recommendations</h2>
           {recommendations.map((item, index) => (
@@ -72,6 +71,15 @@ const GetRecommendationsPage: React.FC = () => {
             </p>
           ))}
         </div>
+      ) : preferences.length > 0 ? (
+        <div>
+          <h2 className="text-lg font-semibold">Recommendations</h2>
+          <p className="uppercase font-bold text-sm text-red-500">
+            No recommendations found!
+          </p>
+        </div>
+      ) : (
+        <></>
       )}
     </div>
   );
