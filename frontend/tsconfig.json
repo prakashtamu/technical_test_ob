@@ -1,25 +1,27 @@
 {
   "compilerOptions": {
-    "target": "ESNext", // Specify ECMAScript target version
-    "module": "ESNext", // Use ES modules
-    "lib": ["DOM", "DOM.Iterable", "ESNext"], // Include standard libraries
-    "jsx": "preserve", // Enable React JSX
-    "strict": true, // Enable all strict type-checking options
-    "moduleResolution": "node", // Resolve modules like Node.js
-    "esModuleInterop": true, // Enable compatibility with CommonJS
-    "skipLibCheck": true, // Skip type checks for library files
-    "forceConsistentCasingInFileNames": true, // Ensure file names are case-consistent
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
     "noEmit": true,
-    "incremental": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
     "plugins": [
       {
         "name": "next"
       }
-    ]
+    ],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
-  "include": ["app", ".next/types/**/*.ts", "components"], // Include files from the `app` directory
-  "exclude": ["node_modules"] // Exclude `node_modules` directory
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
 }

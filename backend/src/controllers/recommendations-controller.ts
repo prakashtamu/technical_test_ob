@@ -17,10 +17,16 @@ export const generateRecommendations = async (
     const { user_id, preferences } = RecommendationValidator.parse(req.body);
 
     // save the user's interests
-    await interestModel.create({
-      user_id,
-      interests: preferences,
-    });
+    await interestModel.findOneAndUpdate(
+      { user_id },
+      {
+        user_id,
+        interests: preferences,
+      },
+      {
+        upsert: true,
+      }
+    );
 
     // generate recommendations from llm
     await axiosInstance
@@ -31,10 +37,16 @@ export const generateRecommendations = async (
       .then(async (response) => {
         if (response.status === 200) {
           // store the generated recommendations in the database
-          await RecommendationModel.create({
-            user_id,
-            recommendations: response.data.recommendations,
-          });
+          await RecommendationModel.findOneAndUpdate(
+            { user_id },
+            {
+              user_id,
+              recommendations: response.data.recommendations,
+            },
+            {
+              upsert: true,
+            }
+          );
 
           // return the generated recommendations
           return res.status(StatusCodes.OK).json({
@@ -43,13 +55,21 @@ export const generateRecommendations = async (
           });
         }
       })
-      .catch((error) => {
-        Logger.error(
-          "Encountered an error",
-          JSON.stringify(error, undefined, 2)
+      .catch(async () => {
+        Logger.error("Error generating recommendations");
+        await RecommendationModel.findOneAndUpdate(
+          { user_id },
+          {
+            user_id,
+            recommendations: [],
+          },
+          {
+            upsert: true,
+          }
         );
         return res.status(StatusCodes.BAD_REQUEST).json({
-          error: "Please use the valid preferences",
+          message:
+            "Your preferences yielded no recommendations. We have saved your preferences though.",
         });
       });
   } catch (error) {

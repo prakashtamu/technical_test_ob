@@ -24,7 +24,7 @@ export const getUserRecommendations = async (
       });
     } else {
       return res.status(StatusCodes.NOT_FOUND).json({
-        error: `No recommendations found for user_id ${user_id}.`,
+        message: `No recommendations found for user_id ${user_id}.`,
         interests: interest?.interests || [],
       });
     }
