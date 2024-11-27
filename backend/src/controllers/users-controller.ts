@@ -1,5 +1,6 @@
 // src/controllers/usersController.ts
 
+import InterestModel from "@/models/interest";
 import RecommendationModel from "@/models/recommendation";
 import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
@@ -14,15 +15,18 @@ export const getUserRecommendations = async (
     const result = await RecommendationModel.findOne({
       user_id,
     });
-    if (result) {
+    const interest = await InterestModel.findOne({ user_id });
+    if (result && interest) {
       return res.status(200).json({
         user_id,
         recommendations: result.recommendations,
+        interests: interest.interests,
       });
     } else {
-      return res
-        .status(StatusCodes.NOT_FOUND)
-        .json({ error: `No recommendations found for user_id ${user_id}.` });
+      return res.status(StatusCodes.NOT_FOUND).json({
+        error: `No recommendations found for user_id ${user_id}.`,
+        interests: interest?.interests || [],
+      });
     }
   } catch (error) {
     next(error);
