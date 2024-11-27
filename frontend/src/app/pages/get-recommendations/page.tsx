@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { GetRecommendation } from "@/app/pages/get-recommendations/form";
 import { Book, CircleHelp, Film, Newspaper } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 const GetRecommendationsPage: React.FC = () => {
   const [recommendations, setRecommendations] = useState<
@@ -52,9 +53,11 @@ const GetRecommendationsPage: React.FC = () => {
 
       {preferences.length > 0 && (
         <div>
-          <h2 className="text-lg font-semibold">Interests</h2>
+          <h2 className="text-lg font-semibold">User preferences</h2>
           {preferences.map((item, index) => (
-            <p key={index}>{item}</p>
+            <Badge className="m-2" key={index}>
+              {item}
+            </Badge>
           ))}
         </div>
       )}
